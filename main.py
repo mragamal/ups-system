@@ -907,3 +907,21 @@ def login_post(username: str = Form(...), password: str = Form(...)):
         return response
 
     return HTMLResponse("Invalid login", status_code=401)
+@app.get("/ui", response_class=HTMLResponse)
+def ui_dashboard(request: Request):
+    username = request.cookies.get("ups_user")
+    if not username:
+        return RedirectResponse(url="/login", status_code=302)
+
+    return """
+    <html>
+    <head>
+        <title>Dashboard</title>
+    </head>
+    <body style="font-family:Arial; padding:40px;">
+        <h1>UPS Dashboard</h1>
+        <p>Login successful.</p>
+        <a href="/logout">Logout</a>
+    </body>
+    </html>
+    """
