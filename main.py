@@ -911,6 +911,38 @@ def login_post(username: str = Form(...), password: str = Form(...)):
     return HTMLResponse("Invalid login", status_code=401)
 @app.get("/ui", response_class=HTMLResponse)
 def ui_dashboard(request: Request):
+    try:
+        username = request.cookies.get("ups_user")
+        if not username:
+            return RedirectResponse(url="/login", status_code=302)
+
+        conn = get_conn()
+        user = conn.execute(
+            "SELECT * FROM users WHERE username = ?",
+            (username,)
+        ).fetchone()
+        conn.close()
+
+        if not user:
+            return RedirectResponse(url="/login", status_code=302)
+
+        body = dashboard_body(user)
+
+        return HTMLResponse(
+            page_html(
+                title="Dashboard",
+                body=body,
+                user=user,
+                active="dashboard"
+            )
+        )
+    except Exception as e:
+        return HTMLResponse(
+            f"<h1>ERROR</h1><pre>{str(e)}</pre>",
+            status_code=500
+        )
+
+
     username = request.cookies.get("ups_user")
     if not username:
         return RedirectResponse(url="/login", status_code=302)
