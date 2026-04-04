@@ -1,15 +1,29 @@
-from fastapi import FastAPI, Request
+import os
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
-
-templates = Jinja2Templates(directory="template")
 
 @app.get("/")
 def root():
     return {"message": "Ultra Power Solutions System Running"}
 
 @app.get("/ui", response_class=HTMLResponse)
-def ui(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+def ui():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>UPS System</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Ultra Power Solutions UI</h1>
+        <p>UI is working successfully</p>
+    </body>
+    </html>
+    """
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
