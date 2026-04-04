@@ -432,7 +432,9 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
 
             .sidebar {{
                 width: 250px;
-                background: linear-gradient(180deg, #5b2c87 0%, #4a246f 100%);
+.sidebar {
+    background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+}
                 color: white;
                 padding: 18px 14px;
                 display: flex;
@@ -682,7 +684,7 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
             }}
 
             .btn-primary {{
-                background: #7c3aed;
+                background: #2563eb;
                 color: white;
             }}
 
