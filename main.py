@@ -879,3 +879,31 @@ def module_page_body(module_key: str) -> str:
         <p>This module is enabled and ready to be connected to its real screens.</p>
     </div>
     """
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import Form, Request
+
+@app.get("/login", response_class=HTMLResponse)
+def login_get():
+    return """
+    <html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body style="font-family:Arial; text-align:center; padding-top:100px;">
+        <h2>UPS System Login</h2>
+        <form method="post" action="/login">
+            <input name="username" placeholder="Username"/><br><br>
+            <input name="password" type="password" placeholder="Password"/><br><br>
+            <button type="submit">Login</button>
+        </form>
+    </body>
+    </html>
+    """
+@app.post("/login")
+def login_post(username: str = Form(...), password: str = Form(...)):
+    if username == "admin" and password == "admin123":
+        response = RedirectResponse(url="/ui", status_code=302)
+        response.set_cookie("ups_user", username)
+        return response
+
+    return HTMLResponse("Invalid login", status_code=401)
