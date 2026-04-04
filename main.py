@@ -496,6 +496,9 @@ def dashboard_body(user: sqlite3.Row) -> str:
         )
 
     return f'<div class="apps-grid">{"".join(cards)}</div>'
+@app.get("/")
+def root():
+    return RedirectResponse(url="/login", status_code=302)
 
 
 def module_page_body(module_key: str) -> str:
