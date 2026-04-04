@@ -1,3 +1,5 @@
-cd C:\Users\Owner\telecom_ops
-venv\Scripts\activate
-uvicorn main:app --reload
+fastapi
+uvicorn
+jinja2
+python-multipart
+openpyxl
