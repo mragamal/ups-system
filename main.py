@@ -913,15 +913,23 @@ def ui_dashboard(request: Request):
     if not username:
         return RedirectResponse(url="/login", status_code=302)
 
-    return """
-    <html>
-    <head>
-        <title>Dashboard</title>
-    </head>
-    <body style="font-family:Arial; padding:40px;">
-        <h1>UPS Dashboard</h1>
-        <p>Login successful.</p>
-        <a href="/logout">Logout</a>
-    </body>
-    </html>
-    """
+    conn = get_conn()
+    user = conn.execute(
+        "SELECT * FROM users WHERE username = ?",
+        (username,)
+    ).fetchone()
+    conn.close()
+
+    if not user:
+        return RedirectResponse(url="/login", status_code=302)
+
+    body = dashboard_body(user)
+
+    return HTMLResponse(
+        page_html(
+            title="Dashboard",
+            body=body,
+            user=user,
+            active="dashboard"
+        )
+    )
