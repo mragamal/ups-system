@@ -530,8 +530,8 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
             }}
 
             .apps-btn {{
-                background: #f3e8ff;
-                color: #6b21a8;
+                background: #dbeafe;
+                color: #1d4ed8;
                 border: none;
                 border-radius: 12px;
                 padding: 10px 14px;
@@ -615,8 +615,8 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: linear-gradient(135deg, #ede9fe, #f3e8ff);
-                color: #6b21a8;
+                background: linear-gradient(135deg, #bfdbfe, #dbeafe);
+                color: #1d4ed8;
                 font-size: 20px;
                 font-weight: 800;
                 margin-bottom: 16px;
@@ -720,7 +720,7 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
             }}
 
             th {{
-                background: #faf5ff;
+                background: #eff6ff;
                 color: #5b21b6;
                 font-weight: 800;
             }}
@@ -783,8 +783,8 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
                 padding: 5px 10px;
                 border-radius: 999px;
                 font-size: 12px;
-                background: #f3e8ff;
-                color: #6b21a8;
+                background: #dbeafe;
+                color: #1d4ed8;
                 margin: 3px 4px 0 0;
                 font-weight: 700;
             }}
