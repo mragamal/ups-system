@@ -1,16 +1,22 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 
-from db import init_db
+# استيراد الموديولات
 from modules import dashboard, clients, users, login
 
 app = FastAPI()
 
-init_db()
-
+# static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-app.include_router(login.router)
+# include routers
 app.include_router(dashboard.router)
 app.include_router(clients.router)
 app.include_router(users.router)
+app.include_router(login.router)
+
+# root redirect
+@app.get("/")
+def root():
+    return RedirectResponse(url="/login")
