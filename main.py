@@ -433,7 +433,7 @@ def page_html(title: str, body: str, user: sqlite3.Row, active: str = "dashboard
             .sidebar {{
                 width: 250px;
 .sidebar {{
-    background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+    background: linear-gradient(180deg, #1e40af 0%, #1d4ed8 100%);
 }}
                 color: white;
                 padding: 18px 14px;
