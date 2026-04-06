@@ -1,11 +1,14 @@
 import sqlite3
+from settings import DB_NAME
 
-DB = "ups.db"
+DB = DB_NAME
+
 
 def get_conn():
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def init_db():
     conn = get_conn()
@@ -39,11 +42,18 @@ def init_db():
             ("admin", "admin123", "admin")
         )
 
-        modules = ["dashboard", "clients", "users"]
-        for module in modules:
+    default_modules = ["dashboard", "clients", "inventory", "users", "accounting"]
+
+    for module_name in default_modules:
+        exists = cur.execute(
+            "SELECT id FROM user_permissions WHERE username = ? AND module_name = ?",
+            ("admin", module_name)
+        ).fetchone()
+
+        if not exists:
             cur.execute(
                 "INSERT INTO user_permissions (username, module_name) VALUES (?, ?)",
-                ("admin", module)
+                ("admin", module_name)
             )
 
     conn.commit()

@@ -1,4 +1,6 @@
 from auth import get_user_modules
+from settings import APP_NAME, COMPANY_NAME
+
 
 def render_page(title: str, active: str, content: str, username: str) -> str:
     user_modules = get_user_modules(username)
@@ -9,9 +11,13 @@ def render_page(title: str, active: str, content: str, username: str) -> str:
         cls = "side-link active" if active == "dashboard" else "side-link"
         links.append(f'<a class="{cls}" href="/ui">Dashboard</a>')
 
-    if "clients" in user_modules:
-        cls = "side-link active" if active == "clients" else "side-link"
-        links.append(f'<a class="{cls}" href="/ui/clients">Clients</a>')
+    if "inventory" in user_modules:
+        cls = "side-link active" if active == "inventory" else "side-link"
+        links.append(f'<a class="{cls}" href="/ui/inventory">Inventory</a>')
+
+    if "accounting" in user_modules:
+        cls = "side-link active" if active == "accounting" else "side-link"
+        links.append(f'<a class="{cls}" href="/ui/accounting">Accounting</a>')
 
     if "users" in user_modules:
         cls = "side-link active" if active == "users" else "side-link"
@@ -20,7 +26,7 @@ def render_page(title: str, active: str, content: str, username: str) -> str:
     return f"""
     <html>
     <head>
-        <title>{title}</title>
+        <title>{title} | {APP_NAME}</title>
         <link rel="stylesheet" href="/static/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -29,8 +35,8 @@ def render_page(title: str, active: str, content: str, username: str) -> str:
 
             <aside class="sidebar">
                 <div class="brand-block">
-                    <div class="brand-mini">Ultra Power Solutions</div>
-                    <div class="brand-title">UPS</div>
+                    <div class="brand-mini">{COMPANY_NAME}</div>
+                    <div class="brand-title">{APP_NAME}</div>
                 </div>
 
                 <nav class="side-nav">

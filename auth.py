@@ -1,8 +1,10 @@
 from fastapi import Request
 from db import get_conn
+from settings import COOKIE_NAME
+
 
 def current_user(request: Request):
-    username = request.cookies.get("ups_user")
+    username = request.cookies.get(COOKIE_NAME)
     if not username:
         return None
 
@@ -14,6 +16,7 @@ def current_user(request: Request):
     conn.close()
 
     return user
+
 
 def get_user_modules(username: str):
     conn = get_conn()
